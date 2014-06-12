@@ -1,6 +1,6 @@
 #include "task.h"
 
-int task_b(void *arg)
+void task_b(void *arg)
 {
 	while(1)
 	{

@@ -1,8 +1,8 @@
 #include "task.h"
 
-task_t g_cur_task;
+os_tcb_t g_cur_task;
 
-task_t g_tcb_b;
+os_tcb_t g_tcb_b;
 
 void task_create(task_entry *entry)
 {

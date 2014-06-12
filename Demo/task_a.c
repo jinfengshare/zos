@@ -1,10 +1,10 @@
 #include "task.h"
 
-task_t g_tcb_a;
+os_tcb_t g_tcb_a;
 
 int init(void)
 {
-	extern int task_b(void *arg);
+	extern void task_b(void *arg);
 	extern task_t g_cur_task;
 	
 	g_cur_task.stack_top = 0x20010000;

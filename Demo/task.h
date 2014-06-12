@@ -7,8 +7,8 @@ typedef struct
 	unsigned int stack_size;
 	
 	unsigned int id;
-} task_t;
+} os_tcb_t;
 
-typedef void(*task_entry)(void);
+typedef void(*task_entry)(void *arg);
 
 #endif

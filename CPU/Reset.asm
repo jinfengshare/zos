@@ -6,7 +6,7 @@
 
 Reset_Handler	PROC
 
-	IMPORT init
+	IMPORT os_init
 		
 	; prepare data
 	LDR R0, =0X20020000
@@ -18,7 +18,7 @@ Reset_Handler	PROC
 	ORR R0, #3
 	MSR CONTROL, R0
 	
-	LDR R0, =init
+	LDR R0, =os_init
 	BX R0
 	
 	ENDP

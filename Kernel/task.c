@@ -39,7 +39,9 @@ static void stack_init(const unsigned int *stacktop, unsigned int entry)
 	// PUSH => address--, [address] = data
 	tmp--;
 	
-	*tmp-- = 0;	// xPSR
+	*tmp-- = 0x01000000;	// xPSR // fixed bug, which cause INVSTATE exception
+							// then cause hard fault
+							// force state to thumb mode
 	*tmp-- = entry;	// PC
 	*tmp-- = 0;	// LR
 	*tmp-- = 0;	// R12

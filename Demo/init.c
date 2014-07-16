@@ -39,6 +39,6 @@ int os_init(void)
 	
 	while(1)
 	{
-		__asm{SVC #0};
+		sleep();
 	}
 }

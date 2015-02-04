@@ -1,9 +1,8 @@
 #ifndef TASK_H
 #define TASK_H
 
-#include "ipc.h"
-
 #define TASK_NUM_MAX	16
+#define MSG_QUEUE_SIZE	100
 
 #define TASK_STACK_SIZE	1024
 
@@ -19,12 +18,17 @@ typedef struct
 	unsigned int tick_last;	// for scheduler
 
 	/* Process Control */
-	// IPC
+	// IPC - Msg Queue
+	unsigned char msgqueue[MSG_QUEUE_SIZE];
+	unsigned int msgpos;
 	
 	// Resource related
+	
 } os_tcb_t;
 
 typedef void(*task_entry)(void *arg);
+
+os_tcb_t *get_tcb(int tid);
 
 // fixed bug
 #if 0

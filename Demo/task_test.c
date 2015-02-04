@@ -1,4 +1,5 @@
-void task_04(void * arg)
+
+void taskA(void * arg)
 {
 	while(1)
 	{
@@ -6,7 +7,7 @@ void task_04(void * arg)
 	}
 }
 
-void task_05(void * arg)
+void taskB(void * arg)
 {
 	while(1)
 	{
@@ -14,90 +15,14 @@ void task_05(void * arg)
 	}
 }
 
-void task_06(void * arg)
+void user_task(void *arg)
 {
-	while(1)
-	{
-		sleep();
-	}
+    task_create(taskA);
+    task_create(taskB);
+    
+    while(1)
+    {
+        sleep();
+    }
 }
 
-void task_07(void * arg)
-{
-	while(1)
-	{
-		sleep();
-	}
-}
-
-void task_08(void * arg)
-{
-	while(1)
-	{
-		sleep();
-	}
-}
-
-void task_09(void * arg)
-{
-	while(1)
-	{
-		sleep();
-	}
-}
-
-void task_10(void * arg)
-{
-	while(1)
-	{
-		sleep();
-	}
-}
-
-void task_11(void * arg)
-{
-	while(1)
-	{
-		sleep();
-	}
-}
-
-void task_12(void * arg)
-{
-	while(1)
-	{
-		sleep();
-	}
-}
-
-void task_13(void * arg)
-{
-	while(1)
-	{
-		sleep();
-	}
-}
-
-void task_14(void * arg)
-{
-	while(1)
-	{
-		sleep();
-	}
-}
-
-void task_15(void * arg)
-{
-	while(1)
-	{
-		sleep();
-	}
-}
-
-void task_16(void * arg)
-{
-	while(1)
-	{
-		sleep();
-	}
-}

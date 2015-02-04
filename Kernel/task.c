@@ -1,8 +1,19 @@
-#include "task.h"
+#include <task.h>
+#include <lib/types.h>
 
 os_tcb_t g_cur_task;
 
 os_tcb_t g_tcb_array[TASK_NUM_MAX];
+
+os_tcb_t *get_tcb(int tid)
+{
+	if((tid <0)||(tid >= TASK_NUM_MAX))
+	{
+		return NULL;
+	}
+	
+	return &g_tcb_array[tid];
+}
 
 // as we should push 8 4-byte registers into task stack which be inited.
 const unsigned int g_task_stack_table[TASK_NUM_MAX] =

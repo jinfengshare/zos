@@ -1,9 +1,17 @@
-#include "task.h"
+/* 
+ * Create: jinfeng, 2014/7/28
+ * 
+ * kernel entry, do device init, file system init, create task 0, and change to user mode
+ * after these been done, we move to the first user task, which support an terminal process!
+ *
+ */
 
-void main(void * arg)
+int hardware_init(void)
 {
-	while(1)
-	{
-		sleep();
-	}
+	// file system init
+	//dm_init();
+
+	// device init
+	hal_uart1_init();
 }
+

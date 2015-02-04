@@ -1,13 +1,18 @@
 #ifndef IPC_H
 #define IPC_H
 
-/* ASCII version of message */
+#include <task.h>
+
 typedef struct
 {
 	unsigned int type;
-	char text[1];
+	unsigned char text[1];
 }message_t;
 
-/* UNICODE version of message*/
+typedef struct
+{
+	unsigned int value;
+	unsigned int queue[TASK_NUM_MAX];
+}semaphore_t;
 
 #endif

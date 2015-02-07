@@ -5,6 +5,7 @@
 ;-------------------------------------------------------------------------------
 
 PendSV_Handler	PROC
+    EXPORT  PendSV_Handler         [WEAK]
 	B .
 	ENDP
 	

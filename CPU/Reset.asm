@@ -6,8 +6,7 @@
 
 Reset_Handler	PROC
 	
-	IMPORT shell
-	IMPORT kernel_entry
+	IMPORT main
 	
 	; prepare two mode stack
 	LDR R0, =0X20020000
@@ -15,7 +14,7 @@ Reset_Handler	PROC
 	LDR R0, =0X20010000
 	MSR PSP, R0
 
-	LDR R0, =kernel_entry
+	LDR R0, =main
 	BX R0
 	
 	ENDP

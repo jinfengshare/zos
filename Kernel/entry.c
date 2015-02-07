@@ -1,3 +1,7 @@
+#include "stm32f2xx.h"
+#include "core_cm3.h"
+
+uint32_t __initial_sp = 0x20002000;
 
 __asm
 void enter_user_mode(void)
@@ -12,15 +16,17 @@ void enter_user_mode(void)
 
 extern void user_task(void *arg);
 
-int kernel_init(void)
-{
-    // create first task
-	task0_init();
-}
+extern unsigned int SystemCoreClock;
 
-void kernel_entry(void)
+// the idle task, enter power save mode
+void main(void)
 {
-    kernel_init();
+    SysClock_Init();
+
+    systick_init();
+    SysTick_Config(120000);
+    
+    task0_init();
 
     enter_user_mode();
 
@@ -28,7 +34,8 @@ void kernel_entry(void)
 
     while(1)
     {
-        sleep();
+        // do enter sleep mode, set least task wakeup time
+        schedule();
     }
 }
 

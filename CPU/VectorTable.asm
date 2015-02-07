@@ -3,7 +3,6 @@
 
 	INCLUDE Reset.asm
 	INCLUDE PendSV.asm
-	INCLUDE SysTick.asm
 	INCLUDE SVC.asm
 	INCLUDE Other.asm
 	INCLUDE Default.asm

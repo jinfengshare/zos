@@ -39,7 +39,7 @@ void main(void)
     while(1)
     {
         // do enter sleep mode, set least task wakeup time
-        schedule();
+        sleep(0);
     }
 }
 

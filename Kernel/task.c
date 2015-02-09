@@ -234,51 +234,6 @@ int task_create(void(*task_entry)(void *arg))
 	return -1;
 }
 
-// return task ID
-#if 0
-int os_task_select(void)
-{
-	int i;
-
-	int curID;
-
-	int startIdx;
-
-	curID = g_cur_task.id;
-
- 	// get current task index
-	for(i=0; i<TASK_NUM_MAX; i++)
-	{
-		if(curID == g_ready_tasks[i].id)
-		{
-			startIdx = i;
-			break;
-		}
-	}
-
-	// fixed bug: startIdx+1
-	startIdx += 1;
-	
-	// get next task ID based on index
-	for(i=startIdx; i<TASK_NUM_MAX; i++)
-	{
-		if(g_ready_tasks[i].id > 0)
-		{
-			return g_ready_tasks[i].id;
-		}
-	}
-	for(i=0; i<startIdx; i++)
-	{
-		if(g_ready_tasks[i].id > 0)
-		{
-			return g_ready_tasks[i].id;
-		}
-	}
-
-	// if not found, means just task 0 exists in this system
-	return g_cur_task.id;
-}
-#else
 int os_task_select(void)
 {
     int i;
@@ -306,8 +261,6 @@ int os_task_select(void)
 
     return -1;
 }
-
-#endif
 
 // switch
 void os_task_switch(void)

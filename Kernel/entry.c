@@ -21,12 +21,16 @@ extern unsigned int SystemCoreClock;
 // the idle task, enter power save mode
 void main(void)
 {
+    ENTER_CRITICAL();
+    
     SysClock_Init();
 
     systick_init();
     SysTick_Config(120000);
-    
+
     task0_init();
+    
+    EXIT_CRITICAL();
 
     enter_user_mode();
 

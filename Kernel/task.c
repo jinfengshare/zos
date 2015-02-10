@@ -3,7 +3,6 @@
 
 os_tcb_t g_cur_task;
 
-static int aaaa = 0;
 static int g_ready_tasks_index = 1;
 os_tcb_t g_ready_tasks[TASK_NUM_MAX];
 os_tcb_t g_delay_tasks[TASK_NUM_MAX];

@@ -1,11 +1,7 @@
 #include "types.h"
 
-static uint32_t systick_count = 0;
+static uint32_t systick_count = 0;
 
-void systick_init(void)
-{
-    systick_count = 0;
-}
 
 void systick_irq(void)
 {

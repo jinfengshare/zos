@@ -30,6 +30,5 @@ void SysClock_Init(void)
 
 void SysTick_Init(void)
 {
-    systick_init();
     SysTick_Config(120000);
 }

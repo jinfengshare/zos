@@ -1,9 +1,6 @@
 	
 ; jinfeng, 2014/6/11
 
-	INCLUDE Reset.asm
-	INCLUDE PendSV.asm
-	INCLUDE SVC.asm
 	INCLUDE Other.asm
 	INCLUDE Default.asm
 	

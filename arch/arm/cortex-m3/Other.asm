@@ -4,6 +4,40 @@
 	AREA	|.text|, CODE, READONLY
 ;-------------------------------------------------------------------------------
 
+Reset_Handler	PROC
+	
+	IMPORT __main
+	
+	; prepare two mode stack
+	LDR R0, =0X20020000
+	MSR MSP, R0
+	LDR R0, =0X20010000
+	MSR PSP, R0
+
+	LDR R0, =__main
+	BX R0
+	
+	ENDP
+
+SVC_Handler	PROC
+	PRESERVE8 {TRUE}
+	IMPORT svc_handler
+
+	PUSH {LR}
+	
+	BL svc_handler
+	
+	POP {LR}
+	
+	BX LR
+	
+	ENDP
+
+PendSV_Handler	PROC
+    	EXPORT  PendSV_Handler         [WEAK]
+	B .
+	ENDP
+	
 SysTick_Handler	PROC
     	EXPORT  SysTick_Handler         [WEAK]
 	B	.

@@ -13,11 +13,21 @@ void enter_user_mode(void)
     BX LR
 }
 
+__asm
+void reset_msp(void)
+{
+    LDR R0, =0X20020000
+	MSR MSP, R0
+    BX LR
+}
+
 extern void user_task(void *arg);
 
 // the idle task, enter power save mode
 void main(void)
 {
+    reset_msp();
+    
     ENTER_CRITICAL();
     
     SysClock_Init();

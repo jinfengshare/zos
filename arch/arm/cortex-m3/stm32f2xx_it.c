@@ -35,7 +35,6 @@ void DMA2_Stream2_IRQHandler(void)
 {
 	if(DMA_GetITStatus(DMA2_Stream2, DMA_IT_TCIF2))
 	{
-		interrupt_usart1_add();
 		DMA_ClearITPendingBit(DMA2_Stream2, DMA_IT_TCIF2);
 	}
 }
@@ -44,7 +43,6 @@ void DMA2_Stream7_IRQHandler(void)
 {
 	if(DMA_GetITStatus(DMA2_Stream7, DMA_IT_TCIF7))
 	{
-		interrupt_usart1_send_complete();
 		DMA_ClearITPendingBit(DMA2_Stream7, DMA_IT_TCIF7);
 	}
 }

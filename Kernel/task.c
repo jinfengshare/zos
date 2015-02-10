@@ -1,5 +1,5 @@
 #include <task.h>
-#include <lib/types.h>
+#include <types.h>
 
 os_tcb_t g_cur_task;
 

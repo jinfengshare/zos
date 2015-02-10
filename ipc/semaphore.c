@@ -1,12 +1,11 @@
-#include <lib/types.h>
+#include <types.h>
 #include <ipc.h>
-#include <lib/error.h>
 
 int semaphore_init(semaphore_t *sem, int value)
 {
 	if((NULL == sem) || (value < 0))
 	{
-		return EPARAM;
+		return -1;
 	}
 	
 	sem->value = value;

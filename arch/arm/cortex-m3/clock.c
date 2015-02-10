@@ -1,4 +1,5 @@
 #include "stm32f2xx.h"
+#include "core_cm3.h"
 
 void SysClock_Init(void)
 {
@@ -27,3 +28,8 @@ void SysClock_Init(void)
     SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK);
 }
 
+void SysTick_Init(void)
+{
+    systick_init();
+    SysTick_Config(120000);
+}

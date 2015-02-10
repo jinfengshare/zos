@@ -1,4 +1,4 @@
-#include <lib/ring.h>
+#include <ring.h>
 #include <string.h>
 
 // tail = 3

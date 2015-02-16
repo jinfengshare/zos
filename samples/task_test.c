@@ -1,35 +1,37 @@
-void taskA(void * arg)
+#include "stm32f2xx.h"
+
+extern void shell(void *arg);
+
+void LED_Init()
 {
-	while(1)
-	{
-        printf("taskA\r\n");
-        
-        sleep(2000);
-	}
+    GPIO_InitTypeDef   GPIO_InitStructure;
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
+    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+    GPIO_Init(GPIOB, &GPIO_InitStructure);
 }
 
-void taskB(void * arg)
+static void LED_Toggle(void)
 {
-	while(1)
-	{
-        printf("taskB\r\n");
-        
-        sleep(10000);
-	}
+    GPIO_ToggleBits(GPIOB, GPIO_Pin_1);
 }
 
 void user_task(void *arg)
 {
     debug_init();
 
-    task_create(taskA);
-    task_create(taskB);
+    LED_Init();
+
+    task_create(shell);
     
     while(1)
     {
-        printf("user_task\r\n");
+        sleep(1000);
         
-        sleep(3000);
+        LED_Toggle();
     }
 }
 

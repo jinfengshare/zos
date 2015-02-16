@@ -30,10 +30,6 @@ typedef void(*task_entry)(void *arg);
 
 os_tcb_t *get_tcb(int tid);
 
-// fixed bug
-#if 0
 int task_create(task_entry *entry);
-#else
-int task_create(void(*task_entry)(void *arg));
-#endif
+
 #endif

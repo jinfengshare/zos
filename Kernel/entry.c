@@ -42,9 +42,11 @@ void main(void)
 
     task_create(user_task);
 
+    sleep(0);
+
     while(1)
     {
-        sleep(0);
+        sleep(1000);
     }
 }
 

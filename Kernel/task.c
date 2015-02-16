@@ -199,7 +199,7 @@ static void stack_init(const unsigned int *stacktop, unsigned int entry)
 }
 
 // if not enough space, return -1
-int task_create(void(*task_entry)(void *arg))
+int task_create(task_entry *entry)
 {
 	int i;
 	unsigned int stacktop;
@@ -211,7 +211,7 @@ int task_create(void(*task_entry)(void *arg))
 			// init this task's stack, we must prepare entry in the stack, which can be auto
 			// resumed by processor
 			stacktop = g_task_stack_table[i];
-			stack_init((const unsigned int*)stacktop, (unsigned int)task_entry);
+			stack_init((const unsigned int*)stacktop, (unsigned int)entry);
 			stacktop -= 64;
 			
 			// ID algorithm, simple and useful

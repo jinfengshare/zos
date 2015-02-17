@@ -16,6 +16,8 @@ void svc_trigger(int number, uint32_t a, uint32_t b, uint32_t c, uint32_t d)
 __asm
 void get_svc_number(int *number, uint32_t *a, uint32_t *b, uint32_t *c, uint32_t *d)
 {
+    PUSH {R5-R6}
+    
     MRS R5, PSP
 
     // SVC number
@@ -38,6 +40,8 @@ void get_svc_number(int *number, uint32_t *a, uint32_t *b, uint32_t *c, uint32_t
     LDR R6, [R5, 16]
     STR R6, [R4]
 
+    POP {R5-R6}
+
     BX LR
 }
 
@@ -54,7 +58,7 @@ void do_schedule(void)
     IMPORT g_cur_task
 	
 	; protext LR
-	PUSH {LR}
+	PUSH {R0-R3, LR}
 
     MRS R0, PSP
     STMDB R0!, {R4-R11}
@@ -70,7 +74,7 @@ void do_schedule(void)
 	LDMIA.W R1!, {R4-R11}
 	MSR PSP, R1
 
-	POP {LR}
+	POP {R0-R3, LR}
 	BX LR
 }
 
@@ -85,7 +89,7 @@ void do_sleep(int ms)
     IMPORT g_cur_task
 
     // must be first as pop at end: protext LR
-	PUSH {LR}
+	PUSH {R0-R3, LR}
 
     // protect param: ms
     PUSH {R0}
@@ -110,7 +114,7 @@ void do_sleep(int ms)
 	LDMIA.W R1!, {R4-R11}
 	MSR PSP, R1
 
-    POP {LR}
+    POP {R0-R3, LR}
 	BX LR
 }
 
@@ -124,7 +128,7 @@ void do_default(int a, int b, int c, int d)
  *
  */
 
-void svc_handler(void)
+void svc_irq(void)
 {
     int number;
 
@@ -138,11 +142,16 @@ void svc_handler(void)
             do_sleep(a);
             break;
         case SVC_SCHEDULE:
-            do_schedule();
+            PendSV_Trigger();
             break;
         default:
             do_default(a, b, c, d);
             break;
     }
+}
+
+void pendsv_irq(void)
+{
+    do_schedule();
 }
 

@@ -34,19 +34,21 @@ void main(void)
 
     SysTick_Init();
 
+    PendSV_Init();
+
     task0_init();
     
     EXIT_CRITICAL();
+
+    PendSV_Trigger();
 
     enter_user_mode();
 
     task_create(user_task);
 
-    sleep(0);
-
     while(1)
     {
-        sleep(1000);
+        sleep(0);
     }
 }
 

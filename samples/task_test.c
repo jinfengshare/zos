@@ -29,7 +29,7 @@ void user_task(void *arg)
     
     while(1)
     {
-        sleep(1000);
+        sleep(300);
         
         LED_Toggle();
     }

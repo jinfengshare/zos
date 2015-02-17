@@ -7,8 +7,7 @@
 Reset_Handler	PROC
 	
 	IMPORT __main
-	
-	; prepare two mode stack
+  
 	LDR R0, =0X20020000
 	MSR MSP, R0
 	LDR R0, =0X20010000
@@ -20,17 +19,8 @@ Reset_Handler	PROC
 	ENDP
 
 SVC_Handler	PROC
-	PRESERVE8 {TRUE}
-	IMPORT svc_handler
-
-	PUSH {LR}
-	
-	BL svc_handler
-	
-	POP {LR}
-	
-	BX LR
-	
+	EXPORT  SVC_Handler         [WEAK]
+	B .
 	ENDP
 
 PendSV_Handler	PROC
@@ -44,33 +34,20 @@ SysTick_Handler	PROC
 	ENDP
 	
 NMI_Handler	PROC
-    
-	BX LR
+	EXPORT  NMI_Handler         [WEAK]
+	B .
+	ENDP
 	ENDP
 
 HardFault_Handler	PROC
-
-	B	.
-	ENDP
+	IMPORT hard_fault_handler_c
 	
-MemManage_Handler	PROC
-
-	B	.
-	ENDP
-	
-BusFault_Handler	PROC
-
-	B	.
-	ENDP
-
-UsageFault_Handler	PROC
-
-	B	.
-	ENDP
-	
-DebugMon_Handler	PROC
-
-	B	.
+	TST LR, #4
+	ITE EQ
+	MRSEQ R0, MSP
+	MRSNE R0, PSP
+	B hard_fault_handler_c
 	ENDP
 	
 	END
+	

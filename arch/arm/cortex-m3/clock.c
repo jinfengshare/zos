@@ -32,3 +32,20 @@ void SysTick_Init(void)
 {
     SysTick_Config(120000);
 }
+
+
+void PendSV_Init(void)
+{
+    NVIC_SetPriority (PendSV_IRQn, 0);
+}
+
+void PendSV_Trigger(void)
+{
+    #define NVIC_INT_CTRL		(( volatile unsigned long *)0xe000ed04)
+    #define NVIC_PENDSV			0x10000000
+    
+    /* Set a PendSV to request a context switch. */
+	*(NVIC_INT_CTRL) = NVIC_PENDSV;
+}
+
+

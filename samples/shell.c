@@ -21,16 +21,26 @@ void shell(void *arg)
 {
     int ret;
     uint8_t line[64];
-    
+
     while(1)
     {
+        printf("no help info now\r\n");
+        
         printf(">>");
 
-        ret = read_line(line, 64);
+        //ret = read_line(line, 64);
+
+        fgetc(stdin);
+        sleep(100);
+
+        continue;
+
         if(-1 == ret)
         {
             continue;
         }
+        
+        continue;
 
         if(0 == strcmp(line, "ls"))
         {

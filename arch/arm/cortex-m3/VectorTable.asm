@@ -12,15 +12,15 @@
 	DCD		Reset_Handler
 	DCD		NMI_Handler
 	DCD		HardFault_Handler
-	DCD		MemManage_Handler
-	DCD		BusFault_Handler
-	DCD		UsageFault_Handler
+	DCD		0
+	DCD		0
+	DCD		0
 	DCD		0
 	DCD		0
 	DCD		0
 	DCD		0
 	DCD		SVC_Handler
-	DCD		DebugMon_Handler
+	DCD		0
 	DCD		0
 	DCD		PendSV_Handler
 	DCD		SysTick_Handler

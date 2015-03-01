@@ -23,6 +23,9 @@ void reset_msp(void)
 
 extern void user_task(void *arg);
 
+unsigned int __heap_base = 0x20000000;
+unsigned int __heap_limit = 0x400;
+
 // the idle task, enter power save mode
 void main(void)
 {
@@ -36,6 +39,10 @@ void main(void)
 
     PendSV_Init();
 
+    /* device init */
+    tty_init();
+    LED_Init();
+
     task0_init();
     
     EXIT_CRITICAL();
@@ -48,7 +55,6 @@ void main(void)
 
     while(1)
     {
-        sleep(0);
     }
 }
 

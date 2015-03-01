@@ -21,15 +21,11 @@ static void LED_Toggle(void)
 
 void user_task(void *arg)
 {
-    debug_init();
-
-    LED_Init();
-
     task_create(shell);
     
     while(1)
     {
-        sleep(300);
+        sleep(500);
         
         LED_Toggle();
     }

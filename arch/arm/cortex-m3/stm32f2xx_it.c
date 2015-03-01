@@ -30,6 +30,7 @@ void hard_fault_handler_c(unsigned int *hardfault_args)
     printf("LR [R14] = 0x%08X  subroutine call return address\r\n", stacked_lr);
     printf("PC [R15] = 0x%08X  program counter\r\n", stacked_pc);
     printf("PSR = 0x%08X\r\n", stacked_psr);
+    printf("MMAR = 0x%08X\r\n", (*((volatile unsigned long *)(0xE000ED34))));
     printf("BFAR = 0x%08X\r\n", (*((volatile unsigned long *)(0xE000ED38))));
     printf("CFSR = 0x%08X\r\n", (*((volatile unsigned long *)(0xE000ED28))));
     printf("HFSR = 0x%08X\r\n", (*((volatile unsigned long *)(0xE000ED2C))));
@@ -63,9 +64,13 @@ void SysTick_Handler(void)
 // USART1 related
 void USART1_IRQHandler(void)
 {
-	if(USART_GetITStatus(USART1,USART_IT_IDLE) == SET)
+    uint8_t data;
+    
+    if(USART_GetITStatus(USART1,USART_IT_RXNE) == SET)
 	{
-		USART_ClearITPendingBit(USART1,USART_IT_IDLE);
+        data = (uint8_t)USART_ReceiveData(USART1);
+        interrupt_uart_add(data);
+		USART_ClearITPendingBit(USART1,USART_IT_RXNE);
 	}
 }
 // for recv complete

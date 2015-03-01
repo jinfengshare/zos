@@ -5,11 +5,12 @@
 
 #include <stdlib.h>
 #include <stm32f2xx.h>
+#include <ringbuf.h>
 
-#define UART_BUFFER_LEN 256
+#define BUFFERLEN 256
 
-uint8_t uart_has_data = 0;
-uint8_t uart_data = 0xFF;
+ringbuf_t ringbuffer;
+uint8_t rx_buffer[BUFFERLEN];
 
 static void gpio_init(void)
 {
@@ -44,6 +45,8 @@ static void uart_init(void)
 	USART_Init(USART1, &USART_InitStructure);
 
 	USART_DMACmd(USART1, USART_DMAReq_Rx | USART_DMAReq_Tx, ENABLE);
+
+    USART_ITConfig(USART1,USART_IT_RXNE,ENABLE);
 	
 	USART_Cmd(USART1, ENABLE);	
 }
@@ -61,14 +64,43 @@ static void nvic_init(void)
 
 void tty_init(void)
 {
+    ringbuf_init(&ringbuffer, rx_buffer, BUFFERLEN);
+    
 	nvic_init();
 	uart_init();
 	gpio_init();
 }
 
+uint8_t tty_read(void)
+{
+    uint8_t c;
+    
+    if(0 == ringbuf_get_datalen(&ringbuffer))
+    {
+        return -1;
+    }
+
+    ringbuf_get_data(&ringbuffer, &c, 1);
+
+    return c;
+}
+
+void uart_write_byte(uint8_t b)
+{
+    while (RESET == USART_GetFlagStatus(USART1, USART_FLAG_TXE));
+    
+    USART_SendData(USART1, (uint16_t)b);
+}
+
 void interrupt_uart_add(uint8_t data)
 {
-    uart_has_data = 1;
-	uart_data = data;
+    uart_write_byte(data);
+
+    if('\r' == data)
+    {
+        uart_write_byte('\n');
+    }
+    
+    ringbuf_add(&ringbuffer, &data, 1);
 }
 
